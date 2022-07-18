@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
-from sendgrid_helper import send_mail
 
 logging.config.fileConfig('logging.conf')
 
@@ -47,7 +46,6 @@ def login():
     except Exception as e:
         message = "An error occurred while trying to access stackoverflow.com!"
         logging.error(message, e)
-        send_mail("Error at login!", message + str(e))
 
     finally:
         driver.close()

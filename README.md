@@ -1,3 +1,5 @@
+**Sendgrid has been removed**
+
 # Earn the Fanatic Badge on Stack Overflow
 
 A Python script deployed to Heroku that performs automatic logins on stackoverflow.com on a regular basis, so that you can earn the **Fanatic** badge, effortlessly.

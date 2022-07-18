@@ -7,11 +7,6 @@
     "stack_overflow",
     "fanatic_badge"
   ],
-  "addons": [
-    {
-      "plan": "sendgrid:starter"
-    }
-  ],
   "buildpacks": [
     {
       "url": "heroku/python"

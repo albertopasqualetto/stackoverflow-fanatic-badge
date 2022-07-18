@@ -5,7 +5,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 import stack_exchange_api
 import stack_overflow_page
-from sendgrid_helper import send_mail
 
 logging.config.fileConfig('logging.conf')
 schedule = BlockingScheduler()
@@ -24,7 +23,6 @@ def access_stack_overflow_api():
         message = "You haven't logged in for at least " + str(delta_hours) + " hours! \n " + \
                   "Access stackoverflow.com to save your login streak"
         logging.error(message)
-        send_mail("Login overdue alert!", message)
 
 
 schedule.start()
