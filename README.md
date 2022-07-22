@@ -1,4 +1,4 @@
-**Sendgrid has been removed**
+**Email sending and login check removed**
 
 # Earn the Fanatic Badge on Stack Overflow
 
