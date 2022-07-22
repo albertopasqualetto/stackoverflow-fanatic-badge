@@ -2,7 +2,3 @@
 # export STACK_OVERFLOW_EMAIL='your.email@example.com'
 # export STACK_OVERFLOW_PASSWORD='your.password'
 # export STACK_OVERFLOW_DISPLAY_NAME='your.display.name'
-## Stack Exchange API: to get an email after a period of inactivity:
-# export STACK_EXCHANGE_CLIENT_ID='1***1'
-# export STACK_EXCHANGE_KEY='**********************(('
-# export STACK_EXCHANGE_ACCESS_TOKEN='*********************Q))'
