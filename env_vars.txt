@@ -1,4 +1,0 @@
-## Basic login script:
-# export STACK_OVERFLOW_EMAIL='your.email@example.com'
-# export STACK_OVERFLOW_PASSWORD='your.password'
-# export STACK_OVERFLOW_DISPLAY_NAME='your.display.name'
