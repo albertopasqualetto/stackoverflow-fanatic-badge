@@ -18,8 +18,6 @@ def main():
 	last_access = fetch_me_last_access()
 	if(datetime.now() - timedelta(days=1) > datetime.fromtimestamp(last_access)):
 		send("You haven't accessed Stack Overflow in the last 24 hours!\nLast login: "+str(datetime.fromtimestamp(last_access)))
-	else:
-		send("You have accessed Stack Overflow in the last 24 hours!\nLast login: "+str(datetime.fromtimestamp(last_access)))
 
 if __name__ == "__main__":
 	main()
