@@ -1,4 +1,8 @@
-APScheduler==3.6.3
-selenium==3.8.1
-webdriver_manager==3.1.0
-python-dotenv==0.20.0
+# APScheduler==3.6.3
+selenium>=4.3.0
+webdriver_manager>=3.8.2
+python-dotenv>=0.20.0
+python-telegram-bot>=13.14
+stackapi>=0.2.0
+requests>=2.0.0
+requests_oauthlib>=3.0.0
