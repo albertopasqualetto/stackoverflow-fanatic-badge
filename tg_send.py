@@ -19,6 +19,7 @@ def send(msg, chat_id=os.environ.get('TG_USER_ID'), token=os.environ.get('TG_BOT
 	Send a mensage to a telegram user specified on chatId
 	chat_id must be a number!
 	"""
+	logging.info("Sending message to " + chat_id)
 	bot = telegram.Bot(token=token)
 	bot.sendMessage(chat_id=chat_id, text=msg)
 

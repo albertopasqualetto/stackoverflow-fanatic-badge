@@ -29,7 +29,7 @@ def fetch_me_last_access(my_key=os.environ.get('STACK_EXCHANGE_KEY'), my_access_
 	Fetches the user info
 	"""
 	SITE = StackAPI('stackoverflow', key=my_key, access_token=my_access_token)
-
+	logging.info("Getting user's last access date")
 	return SITE.fetch('me')['items'][0]['last_access_date']
 
 if __name__ == '__main__':
