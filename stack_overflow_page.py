@@ -17,44 +17,49 @@ logging.config.fileConfig('logging.conf')
 
 
 def login():
-    logging.info("Logging into stackoverflow.com")
+	logging.info("Logging into stackoverflow.com")
 
-    email = os.environ.get('STACK_OVERFLOW_EMAIL')
-    password = os.environ.get('STACK_OVERFLOW_PASSWORD')
-    display_name = os.environ.get('STACK_OVERFLOW_DISPLAY_NAME')
+	email = os.environ.get('STACK_OVERFLOW_EMAIL')
+	password = os.environ.get('STACK_OVERFLOW_PASSWORD')
+	display_name = os.environ.get('STACK_OVERFLOW_DISPLAY_NAME')
 
-    if None in (email, password, display_name):
-        print(email, password, display_name)
-        logging.error("Set 'STACK_OVERFLOW_EMAIL' 'STACK_OVERFLOW_PASSWORD' 'STACK_OVERFLOW_DISPLAY_NAME' env "
-                      "variables to successfully log into Stack Overflow for "+email+", "+display_name)
-        return
+	if None in (email, password, display_name):
+		print(email, password, display_name)
+		logging.error("Set 'STACK_OVERFLOW_EMAIL' 'STACK_OVERFLOW_PASSWORD' 'STACK_OVERFLOW_DISPLAY_NAME' env variables to successfully log into Stack Overflow for " + email + ", " + display_name)
+		return
 
     driver = webdriver.Chrome(ChromeDriverManager().install())
 
-    try:
-        driver.get("https://stackoverflow.com")
+	success = False
 
-        driver.find_element(By.LINK_TEXT, "Log in").click()
+	try:
+		driver.get("https://stackoverflow.com")
 
-        driver.find_element(By.ID, "email").send_keys(email)
-        driver.find_element(By.ID, "password").send_keys(password)
-        driver.find_element(By.ID, "submit-button").submit()
+		driver.find_element(By.LINK_TEXT, "Log in").click()
 
-        driver.find_element(By.PARTIAL_LINK_TEXT, display_name).click()
+		driver.find_element(By.ID, "email").send_keys(email)
+		driver.find_element(By.ID, "password").send_keys(password)
+		driver.find_element(By.ID, "submit-button").submit()
 
-        elem = WebDriverWait(driver, 5).until(
-            EC.presence_of_element_located((By.ID, "js-daily-access-calendar-container"))
-        )
-        
-        logging.info("Logged into stackoverflow.com and accessed profile page - " + elem.text)
+		driver.find_element(By.PARTIAL_LINK_TEXT, display_name).click()
 
-    except Exception as e:
-        message = "An error occurred while trying to access stackoverflow.com!"
-        logging.error(message, e)
+		elem = WebDriverWait(driver, 5).until(
+			EC.presence_of_element_located((By.ID, "js-daily-access-calendar-container"))
+		)
+
+		success = True
+		logging.info("Logged into stackoverflow.com and accessed profile page - " + elem.text)
+
+	except Exception as e:
+		success = False
+		message = "An error occurred while trying to access stackoverflow.com!"
+		logging.error(message, e)
 
     finally:
         driver.close()
 
+	return success
+
 
 if __name__ == "__main__":
-    login()
+	login()

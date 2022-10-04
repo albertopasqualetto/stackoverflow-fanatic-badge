@@ -10,6 +10,8 @@ from requests_oauthlib import OAuth2Session
 
 from stackapi import StackAPI
 
+logging.config.fileConfig('logging.conf')
+
 def get_authorization_url():
 	client_id = os.environ.get('STACK_EXCHANGE_CLIENT_ID')
 	if client_id is None:
@@ -31,6 +33,7 @@ def fetch_me_last_access(my_key=os.environ.get('STACK_EXCHANGE_KEY'), my_access_
 	SITE = StackAPI('stackoverflow', key=my_key, access_token=my_access_token)
 	logging.info("Getting user's last access date")
 	return SITE.fetch('me')['items'][0]['last_access_date']
+
 
 if __name__ == '__main__':
 	#get_authorization_url()

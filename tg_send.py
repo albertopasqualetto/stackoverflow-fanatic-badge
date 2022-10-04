@@ -11,17 +11,17 @@ import telegram
 
 logging.config.fileConfig('logging.conf')
 
-test_msg='test'
+test_msg = 'test'
 
 
-def send(msg, chat_id=os.environ.get('TG_USER_ID'), token=os.environ.get('TG_BOT_TOKEN')):
+def send(msg, chat_id=os.environ.get('TG_USER_ID'), token=os.environ.get('TG_BOT_TOKEN'), notification=True):
 	"""
-	Send a mensage to a telegram user specified on chatId
+	Send a message to a telegram user specified on chatId
 	chat_id must be a number!
 	"""
 	logging.info("Sending message to " + chat_id)
 	bot = telegram.Bot(token=token)
-	bot.sendMessage(chat_id=chat_id, text=msg)
+	bot.sendMessage(chat_id=chat_id, text=msg, disable_notification=(not notification))
 
 
 if __name__ == '__main__':
