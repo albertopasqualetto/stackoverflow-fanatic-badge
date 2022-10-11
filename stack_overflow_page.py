@@ -9,7 +9,9 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.options import Options
+chrome_options = Options()
+chrome_options.add_argument("--headless")
 
 load_dotenv()
 
@@ -28,7 +30,7 @@ def login():
 		logging.error("Set 'STACK_OVERFLOW_EMAIL' 'STACK_OVERFLOW_PASSWORD' 'STACK_OVERFLOW_DISPLAY_NAME' env variables to successfully log into Stack Overflow for " + email + ", " + display_name)
 		return
 
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+	driver = webdriver.Chrome(options=chrome_options)
 
 	success = False
 
