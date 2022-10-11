@@ -13,15 +13,31 @@ from stack_overflow_page import login
 from stack_exchange_api import fetch_me_last_access
 from tg_send import send
 
+import time
 
-def main():
-	success = login()
+
+def main(tries=0):
+	log_return = login()
 
 	last_access = fetch_me_last_access()
-	if not success or datetime.now() - timedelta(days=1) > datetime.fromtimestamp(last_access):
-		send("You haven't accessed Stack Overflow in the last 24 hours!\nLast login: " + str(datetime.fromtimestamp(last_access)), "Success:" + str(success))
+	if datetime.now() - timedelta(days=1) > datetime.fromtimestamp(last_access):
+		logging.error("Last access was more than 24 hours ago, retrying... Tries: " + str(tries))
+		if tries < 10:
+			time.sleep(100)
+			main(tries + 1)
+		else:
+			logging.error("Tried to login 10 times and failed!")
+			send("*Tried to login 10 times and failed!*\nYou have *NOT* accessed Stack Overflow in the last 24 hours!\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nSuccess: " + str(log_return[0]))
+	elif not log_return[0]:
+		logging.error("Failed to login, retrying... Tries: " + str(tries))
+		if tries < 10:
+			time.sleep(100)
+			main(tries + 1)
+		else:
+			logging.error("Tried to login 10 times and failed but last access was less than 24 hours ago!")
+			send("*Tried to login 10 times and failed!*\nYou have *NOT* accessed Stack Overflow *now*!" + "\nSuccess: " + str(log_return[0]) + "\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nTries: " + str(tries))
 	else:
-		send("You've accessed Stack Overflow in the last 24 hours!\nLast login: " + str(datetime.fromtimestamp(last_access)), notification=False)
+		send("You have accessed Stack Overflow in the last 24 hours!\nConsecutive days: " + str(log_return[1]) + "\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nSuccess: " + str(log_return[0]), notification=False)
 
 	logging.info("Done!")
 

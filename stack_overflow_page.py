@@ -33,6 +33,7 @@ def login():
 	driver = webdriver.Chrome(options=chrome_options)
 
 	success = False
+	consecutive_days = 0
 
 	try:
 		driver.get("https://stackoverflow.com")
@@ -43,14 +44,18 @@ def login():
 		driver.find_element(By.ID, "password").send_keys(password)
 		driver.find_element(By.ID, "submit-button").submit()
 
-		driver.find_element(By.PARTIAL_LINK_TEXT, display_name).click()
+		account_link = WebDriverWait(driver, 10).until(
+			EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, display_name))
+		)
+		account_link.click()
 
-		elem = WebDriverWait(driver, 5).until(
+		cal = WebDriverWait(driver, 10).until(
 			EC.presence_of_element_located((By.ID, "js-daily-access-calendar-container"))
 		)
 
 		success = True
-		logging.info("Logged into stackoverflow.com and accessed profile page - " + elem.text)
+		consecutive_days = int(cal.text.split(", ")[1].strip().split(" ")[0])
+		logging.info("Logged into stackoverflow.com and accessed profile page - " + str(consecutive_days) + " consecutive days")
 
 	except Exception as e:
 		success = False
@@ -60,7 +65,7 @@ def login():
     finally:
         driver.close()
 
-	return success
+	return success, consecutive_days		# this is a tuple
 
 
 if __name__ == "__main__":
