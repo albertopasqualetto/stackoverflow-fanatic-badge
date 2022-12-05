@@ -1,4 +1,4 @@
-**Email sending and login check removed**
+**Email sending and login check removed, Telegram bot message added**
 
 # Earn the Fanatic Badge on Stack Overflow
 
