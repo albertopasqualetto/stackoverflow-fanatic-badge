@@ -18,6 +18,11 @@ import time
 
 def main(tries=0):
 	log_return = login()
+	success_print = str(log_return[0])
+	if log_return[0]:
+		success_print = success_print + ' \U00002714'
+	else:
+		success_print = success_print + ' \U0000274C'
 
 	last_access = fetch_me_last_access()
 	if datetime.now() - timedelta(days=1) > datetime.fromtimestamp(last_access):
@@ -27,7 +32,7 @@ def main(tries=0):
 			main(tries + 1)
 		else:
 			logging.error("Tried to login 10 times and failed!")
-			send("*Tried to login 10 times and failed!*\nYou have *NOT* accessed Stack Overflow in the last 24 hours!\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nSuccess: " + str(log_return[0]))
+			send("*Tried to login 10 times and failed!*\nYou have *NOT* accessed Stack Overflow in the last 24 hours!\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nSuccess: " + success_print)
 	elif not log_return[0]:
 		logging.error("Failed to login, retrying... Tries: " + str(tries))
 		if tries < 10:
@@ -35,9 +40,9 @@ def main(tries=0):
 			main(tries + 1)
 		else:
 			logging.error("Tried to login 10 times and failed but last access was less than 24 hours ago!")
-			send("*Tried to login 10 times and failed!*\nYou have *NOT* accessed Stack Overflow *now*!" + "\nSuccess: " + str(log_return[0]) + "\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nTries: " + str(tries))
+			send("*Tried to login 10 times and failed!*\nYou have *NOT* accessed Stack Overflow *now*!" + "\nSuccess: " + success_print + "\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nTries: " + str(tries))
 	elif log_return[1] < 100 or log_return[1] % 30 == 0:
-		send("You have accessed Stack Overflow in the last 24 hours!\nConsecutive days: " + str(log_return[1]) + "\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nSuccess: " + str(log_return[0]), notification=False)
+		send("You have accessed Stack Overflow in the last 24 hours!\nConsecutive days: " + str(log_return[1]) + "\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nSuccess: " + success_print, notification=False)
 	elif log_return[1] == 100:
 		send("\U0001F389 You have accessed Stack Overflow for 100 consecutive days! \U0001F973", notification=True)
 

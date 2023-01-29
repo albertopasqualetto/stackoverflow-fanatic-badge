@@ -62,8 +62,8 @@ def login():
 		message = "An error occurred while trying to access stackoverflow.com!"
 		logging.error(message, e)
 
-    finally:
-        driver.close()
+	finally:
+		driver.close()
 
 	return success, consecutive_days		# this is a tuple
 
