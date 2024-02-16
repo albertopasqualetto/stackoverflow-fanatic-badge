@@ -40,7 +40,7 @@ def main(tries=0):
 			main(tries + 1)
 		else:
 			logging.error("Tried to login 10 times and failed but last access was less than 24 hours ago!")
-			send("*Tried to login 10 times and failed!*\nYou have *NOT* accessed Stack Overflow *now*!" + "\nSuccess: " + success_print + "\nLast login: \\" + str(datetime.fromtimestamp(last_access)) + "\nTries: " + str(tries))
+			send("*Tried to login 10 times and failed!*\nYou have *NOT* accessed Stack Overflow *now*!" + "\nSuccess: " + success_print + "\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nTries: " + str(tries))
 	elif log_return[1] < 100 or log_return[1] % 30 == 0:
 		send("You have accessed Stack Overflow in the last 24 hours!\nConsecutive days: " + str(log_return[1]) + "\nLast login: " + str(datetime.fromtimestamp(last_access)) + "\nSuccess: " + success_print, notification=False)
 	elif log_return[1] == 100:
