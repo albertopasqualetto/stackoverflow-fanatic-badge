@@ -10,8 +10,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
+from selenium_stealth import stealth
+
 chrome_options = Options()
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("start-maximized")
+chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+chrome_options.add_experimental_option('useAutomationExtension', False)
 
 load_dotenv()
 
@@ -31,6 +36,19 @@ def login():
 		return
 
 	driver = webdriver.Chrome(options=chrome_options)
+	# driver = webdriver.Remote(
+	# 			command_executor='http://localhost:4444/wd/hub',
+	# 			options=chrome_options
+	# 		)
+
+	stealth(driver,
+		 languages=["en-US", "en"],
+		 vendor="Google Inc.",
+		 platform="Win32",
+		 webgl_vendor="Intel Inc.",
+		 renderer="Intel Iris OpenGL Engine",
+		 fix_hairline=True
+		 )
 
 	success = False
 	consecutive_days = 0

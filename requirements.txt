@@ -1,4 +1,5 @@
 selenium~=4.17.2
+selenium-stealth @ git+https://github.com/SheldWar/selenium-stealth@remote_driver	# used to bypass cloudflare detection, this is a fork which enables remote driver support
 # webdriver_manager~=4.0.1
 python-dotenv~=1.0.1
 python-telegram-bot~=20.8
