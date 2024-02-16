@@ -2,6 +2,8 @@
 # bootstrap.sh
 # for use with a remote docker container running selenium grid (arm version)
 
+trap ' ' INT
+
 docker run -d --name selenium_stackoverflow_fanatic_badge --rm -it -p 4444:4444 -p 5900:5900 -p 7900:7900 --shm-size 2g seleniarm/standalone-chromium:latest
 
 # wait-for-grid.sh
