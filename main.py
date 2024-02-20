@@ -13,6 +13,7 @@ from stack_overflow_page import login
 from stack_exchange_api import fetch_me_last_access
 from tg_send import send
 
+import telegram
 import time
 
 
