@@ -16,7 +16,7 @@ while ! curl -sSL "localhost:4444/wd/hub/status" 2>&1 \
 done
 >&2 echo "Selenium Grid is up - executing tests"
 
-python3 main.py
+./venv/bin/python3 main.py
 
 echo stopping Selenium...
 docker stop selenium_stackoverflow_fanatic_badge
