@@ -4,6 +4,7 @@
 
 trap ' ' INT
 
+echo starting Selenium...
 docker run -d --name selenium_stackoverflow_fanatic_badge --rm -it -p 4444:4444 -p 5900:5900 -p 7900:7900 --shm-size 2g seleniarm/standalone-chromium:latest
 
 # wait-for-grid.sh
@@ -17,4 +18,5 @@ done
 
 python3 main.py
 
+echo stopping Selenium...
 docker stop selenium_stackoverflow_fanatic_badge
